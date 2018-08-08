@@ -266,7 +266,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
   l = vector()
   for (i in 1:length(fu.mz_b_psm)) {
     if(lengths(strsplit(names(fu.mz_b_psm[i]),'\\.'))>2){
-      print(names(fu.mz_b_psm[i]))
+      #print(names(fu.mz_b_psm[i]))
       #fu.mz_b_psm = fu.mz_b_psm[,-i]
       l <- c(l,i)
     }
@@ -279,7 +279,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
   l = vector()
   for (i in 1:length(fu.mz_y_psm)) {
     if(lengths(strsplit(names(fu.mz_y_psm[i]),'\\.'))>2){
-      print(names(fu.mz_y_psm[i]))
+      #print(names(fu.mz_y_psm[i]))
       l <- c(l,i)
     }
   }
@@ -348,7 +348,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
   l = vector()
   for (i in 1:length(fm.mz_b_psm)) {
     if(lengths(strsplit(names(fm.mz_b_psm[i]),'\\.'))>2){
-      print(names(fm.mz_b_psm[i]))
+      #print(names(fm.mz_b_psm[i]))
       l <- c(l,i)
     }
   }
@@ -360,7 +360,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
   l = vector()
   for (i in 1:length(fm.mz_y_psm)) {
     if(lengths(strsplit(names(fm.mz_y_psm[i]),'\\.'))>2){
-      print(names(fm.mz_y_psm[i]))
+      #print(names(fm.mz_y_psm[i]))
       l <- c(l,i)
     }
   }
