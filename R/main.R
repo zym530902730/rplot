@@ -83,11 +83,11 @@ main <-function(input_table_path,xmlurl){
                                fixed = FALSE)))]
 
     if(sum(unlist(input_table_copy$label)==labels[i])==2){
-      plot_mirror(paste(rawfile,"_mirror",labels[i],Sys.time()),
+      plot_mirror(paste(rawfile,"_mirror",labels[i]),
                   input_table_copy,xmlurl)
     }
     if(sum(unlist(input_table_copy$label)==labels[i])>2){
-      plot_parallel(paste(rawfile,"_parallel",labels[i],Sys.time()),
+      plot_parallel(paste(rawfile,"_parallel",labels[i]),
                     input_table_copy,xmlurl)
     }
 
