@@ -31,7 +31,7 @@
 
 #' @export
 
-# 多修饰绘图方法
+# parallel image drawing method
 plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
                         ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10){
 
@@ -39,7 +39,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
   modifications = data.frame()
-  modifications<-read_modifications(xmlurl)
+  modifications = read_modifications(xmlurl)
 
   f.atom_MW = structure(list(Element = structure(c(20L, 4L, 24L, 9L, 11L, 1L,
   28L, 2L, 31L, 3L, 18L, 29L, 25L, 6L, 32L, 36L, 14L, 23L, 12L,
@@ -126,7 +126,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
   min_intensity=max(max_mod,max(unmod.ms2$intensity))/min_intensity
 
-  # 先遍历f.msms_m层数，分层画图
+  # First traverse the number of f.msms_m layers, layered drawing
   # calculate theoretical b and y ions for given sequence pair
   # input amino acid weight, theoretical weight
   # fu: unmod
@@ -138,11 +138,11 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
   par(pty="m", plt=c(0, 1, 0, 1), omd=c(0.1,0.9,0.1,0.9))
   layers = nrow(f.msms_m)+1
-  # 幕布分层
+  # Curtain layering
   par(mfrow = c(layers, 1))
 
   for(m in 1:nrow(f.msms_m)){
-    # 画出unmod和第一个mod
+    # Draw unmod and the first mod
     if(m == 1){
 
       l1.masses = mod.ms2_sum[,m*2-1]
@@ -188,11 +188,10 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       fm.mz_y$accu_weight = cumsum(fm.mz_y$weight)
 
       ##############################################
-      # 离子 m/z 计算
+      # Ion m/z calculation
       # calculate m/z for b/y ions         ***
-      # unmodified 和modified charge 必须相同
+      # Unmodified and modified charge must be the same
       ##############################################
-      # unmodified 和modified charge 必须相同???????
       if(f.msms_u$Charge != f.msms_m$Charge[m]){
         print("charge should be the same")
         break
@@ -230,14 +229,16 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       }
 
 
-      # fu.psm fm.psm 中的x列 中的推理论值与mod unmod 中的实际值比较
-      # 差值 ppm=(理论准确分子量(单同位素)-实测分子量(单同位素))/
-      #                                       理论准确分子量(单同位素)*1000000
-      # m实际值 M理论值
+      # Comparison between reasoning values in X columns in fu.psm fm.psm and actual values in mod unmod
+      # Difference value
+      # ppm=(theoretical accurate molecular weight (single isotope) - measured molecular weight (single isotope))
+      # Theoretical accurate molecular weight (single isotope)*1000000
+      # m = actual value       M = theoretical value
       # m/z = (1 - 20/1000000)*M/z    ||  m/z = (1 + 20/1000000)* M/z
-      # 先通过20ppm计算出数值范围，只匹配范围内最高峰
-
-      # 求出实际质量的范围 weight_min weight_max
+      # First calculate the numerical range by 20ppm, only match the highest peak in the range.
+      
+      # Find out the scope of the actual quality
+      # weight_min weight_max
       fu.mz_b_final$mz_b_min = (1 - ppm/PPM_denominator) * fu.mz_b_final$mz_b
       fu.mz_b_final$mz_b_max = (1 + ppm/PPM_denominator) * fu.mz_b_final$mz_b
       fu.mz_y_final$mz_y_min = (1 - ppm/PPM_denominator) * fu.mz_y_final$mz_y
@@ -293,7 +294,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       }
       fu.mz_y_psm = fu.mz_y_psm[index_y]
 
-      # 去除多余列 不影响后续
+      # Remove superfluous columns
       l = vector()
       for (i in 1:length(fu.mz_b_psm)) {
         if(lengths(strsplit(names(fu.mz_b_psm[i]),'\\.'))>2){
@@ -325,14 +326,6 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       fu.mz_y_final = cbind(fu.mz_y_final, fu.mz_y_psm)
 
       #####################################
-      #maxquant  unmod from f.msms_old
-      #
-      #y1;y3;y4;y5;y6;y7;y8;y9;
-      #fu.mz_y_final 匹配9个；正常
-      #b2;b3;b4
-      #fu.mz_b_final 匹配3个；正常
-
-      ##################################
       # mod: fm b/y ion PSM
       fm.mz_b_psm = data.frame(mz = seq(1:nrow(fm.mz_b_final)))
       fm.mz_y_psm = data.frame(mz = seq(1:nrow(fm.mz_y_final)))
@@ -376,7 +369,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       }
       fm.mz_y_psm = fm.mz_y_psm[index_y]
 
-      # 去除多余列
+      # Remove superfluous columns
       l = vector()
       for (i in 1:length(fm.mz_b_psm)) {
         if(lengths(strsplit(names(fm.mz_b_psm[i]),'\\.'))>2){
@@ -409,9 +402,9 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       fm.mz_y_final = cbind(fm.mz_y_final, fm.mz_y_psm)
 
 
-      # intensity太低的m/z就不显示，也不和b/y ion匹配。
-      # intensity太低的缺省定义是最高峰的1%。
-      ## 去除掉峰度太低的匹配的b y离子
+      # m/z whose intensity is too low is not displayed and does not match b/y ion
+      # The default definition of too low intensity is 1% of the highest peak.
+      ## Remove matching b y ions with too low kurtosis
       # fu.mz_b_final
       l = vector()
       for (j in 11:length(fu.mz_b_final)) {
@@ -466,7 +459,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       for (i in l) {
         fm.mz_y_final = fm.mz_y_final[,-i]
       }
-      ## 去除掉峰度太低的ms2
+      # Remove ms2 with too low kurtosis
       l = vector()
       for (i in 1:nrow(mod.ms2)) {
         if(mod.ms2$intensity[i]<min_intensity){
@@ -489,13 +482,13 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
         unmod.ms2 = unmod.ms2[-i,]
       }
 
-      # msms中的数值不需要画出
-      # 先进行mod.ms2和unmod.ms2等比缩放以保持上下画幅一致，
-      # 并将unmod.ms2的intensity
+      # The values in msms do not need to be drawn
+      # First perform mod.ms2 and unmod.ms2 scaling to keep the upper and lower frames consistent.，
+      # And change the intensity of unmod.ms2 to a negative number
 
       if(max(unmod.ms2$intensity)>max(mod.ms2$intensity)){
         ratio = max(unmod.ms2$intensity)/max(mod.ms2$intensity)
-        unmod.ms2$intensity_adj = unmod.ms2$intensity/ratio #* -1  #调整为负值
+        unmod.ms2$intensity_adj = unmod.ms2$intensity/ratio
         mod.ms2$intensity_adj = mod.ms2$intensity
         fu.mz_b_final[,11:length(fu.mz_b_final)] =
           fu.mz_b_final[,11:length(fu.mz_b_final)]/ratio
@@ -550,14 +543,14 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
 
-      # 画出匹配的b y 离子，并在柱顶标注
-      # y离子 index 顺序调整
+      # Draw matching b y ions and mark them at the top of the column
+      # y ion index order adjustment
       for (i in 1:nrow(fu.mz_y_final)) {
         fu.mz_y_final$index[i] =
         nrow(fu.mz_y_final)/max(fu.mz_y_final$charge) -fu.mz_y_final$index[i] +1
       }
 
-      # 先遍历列再遍历行
+      # Traverse the column first and then traverse the row
 
       for (i in 11:length(fu.mz_b_final)) {
         for (j in 1:nrow(fu.mz_b_final)) {
@@ -611,10 +604,9 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       }
 
 
-
-
-      # 对于charge为2 的子离子
-      # 先删除处理 proteomicsdb只对charge为1的进行氨基酸的匹配
+      
+      # For the child ion with a charge of 2, delete it first.
+      # Proteomicsdb only matches amino acids with a charge of 1.
 
       fu.mz_b_final = fu.mz_b_final[which(fu.mz_b_final$charge==1),]
       fu.mz_y_final = fu.mz_y_final[which(fu.mz_y_final$charge==1),]
@@ -636,7 +628,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
           segments(x0=fu.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
                    x1=fu.mz_b_final$mz_b[i], y1=n.ms2.max.intensity*1.45)
 
-          # 最后一个手动赋值
+          # Last manual assignment
           segments(fu.mz_b_final$mz_b[nrow(fu.mz_b_final)-1],
                    n.ms2.max.intensity*1.4, fu.mz_b_final$mz_b[
                      nrow(fu.mz_b_final)-1]+
@@ -647,7 +639,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
             n.ms2.max.intensity*1.4,n.ms1.mass,n.ms2.max.intensity*1.4)
 
 
-          # 第一次添加黑线25%  75%
+          # Add black line for the first time in 25%  75%
           if(i==1){
             segments(0,n.ms2.max.intensity*1.4,0.25*fu.mz_b_final$mz_b[i],
                      n.ms2.max.intensity*1.4)
@@ -676,10 +668,11 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
         }
       }
 
-      #140%匹配标红
+      #140%Matching 
       for(i in 1:nrow(fu.mz_b_final)){
-        # 为了防止 需要TRUE/FALSE值的地方不可以用缺少值错误，从下标2开始遍历
-        #匹配上色
+        # In order to prevent the need for TRUE/FALSE values, 
+        # you can not use the missing value error, traversing from subscript 2
+        # Match and add color
         for (j in 11:length(fu.mz_b_final)) {
           if(fu.mz_b_final[i,j] != 0){
             segments(x0=fu.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
@@ -726,7 +719,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
             n.ms2.max.intensity*1.25,n.ms1.mass,n.ms2.max.intensity*1.25)
 
 
-          # 25% 75% 黑线
+          # 25% 75% black line
           if(i==1){
             segments(0,n.ms2.max.intensity*1.25,fu.mz_y_final$mz_y[i]*0.25,
                      n.ms2.max.intensity*1.25)
@@ -761,7 +754,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
       for(i in 1:nrow(fu.mz_y_final)){
-        # 匹配上色
+        # Match and add color
         for (j in 11:length(fu.mz_y_final)) {
           if(fu.mz_y_final[i,j] != 0){
             segments(x0=fu.mz_y_final$mz_y[i], y0=n.ms2.max.intensity*1.2,
@@ -797,9 +790,8 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
                          "    Gene name(s):",f.msms_u$`Gene Names`),
                  col = "black",bg = "white")
 
-      # 第二层
+      # Second floor
       #screen(2)
-      # c(下, left, 上, right)
       #par(mar=c(0,4,0,4))
       options(scipen=22)
 
@@ -824,14 +816,14 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
 
-      # 画出匹配的b y 离子，并在柱顶标注
-      # y离子 index 顺序调整
+      # Draw matching b y ions and mark them at the top of the column
+      # y ion index order adjustment
       for (i in 1:nrow(fm.mz_y_final)) {
         fm.mz_y_final$index[i] = nrow(fm.mz_y_final)/
           max(fm.mz_y_final$charge) -fm.mz_y_final$index[i] +1
       }
 
-      # 先遍历列再遍历行
+      # Traverse the column first and then traverse the row
 
       for (i in 11:length(fm.mz_b_final)) {
         for (j in 1:nrow(fm.mz_b_final)) {
@@ -888,8 +880,8 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
 
-      # 对于charge为2 的子离子，先删除处理 proteomicsdb
-      # 只对charge为1的进行氨基酸的匹配
+      # For the child ion with a charge of 2, first delete the processing proteomicsdb
+      # Only match the amino acid with a charge of 1.
 
       fm.mz_b_final = fm.mz_b_final[which(fm.mz_b_final$charge==1),]
       fm.mz_y_final = fm.mz_y_final[which(fm.mz_y_final$charge==1),]
@@ -909,7 +901,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
           segments(x0=fm.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
                    x1=fm.mz_b_final$mz_b[i], y1=n.ms2.max.intensity*1.45)
 
-          # 最后一个手动赋值
+          # Last manual assignment
           segments(fm.mz_b_final$mz_b[nrow(fm.mz_b_final)-1],
                    n.ms2.max.intensity*1.4,
                    fm.mz_b_final$mz_b[nrow(fm.mz_b_final)-1]+
@@ -920,7 +912,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
             n.ms2.max.intensity*1.4,n.ms1.mass,n.ms2.max.intensity*1.4)
 
 
-          # 第一次添加黑线25%  75%
+          # Add black line for the first time in 25%  75%
           if(i==1){
             segments(0,n.ms2.max.intensity*1.4,0.25*fm.mz_b_final$mz_b[i],
                      n.ms2.max.intensity*1.4)
@@ -949,12 +941,13 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
         }
       }
 
-      #140%匹配标红
+      #140% Match and mark 
       for(i in 1:nrow(fm.mz_b_final)){
-        # 为了防止 需要TRUE/FALSE值的地方不可以用缺少值错误，从下标2开始遍历
-        #140%匹配标红
+        # In order to prevent the need for TRUE/FALSE values, 
+        # you can not use the missing value error, traversing from subscript 2
+        #140% Match and mark 
 
-        #匹配上色
+        # Match and add color
         for (j in 11:length(fm.mz_b_final)) {
           if(fm.mz_b_final[i,j] != 0){
             segments(x0=fm.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
@@ -1002,7 +995,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
             n.ms2.max.intensity*1.25,n.ms1.mass,n.ms2.max.intensity*1.25)
 
 
-          # 25% 75% 黑线
+          # 25% 75% black line
           if(i==1){
             segments(0,n.ms2.max.intensity*1.25,fm.mz_y_final$mz_y[i]*0.25,
                      n.ms2.max.intensity*1.25)
@@ -1037,7 +1030,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
       for(i in 1:nrow(fm.mz_y_final)){
-        # 匹配上色
+        # Match and add color
         for (j in 11:length(fm.mz_y_final)) {
           if(fm.mz_y_final[i,j] != 0){
             segments(x0=fm.mz_y_final$mz_y[i], y0=n.ms2.max.intensity*1.2,
@@ -1075,7 +1068,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
                  col = "black",bg = "white")
 
     }
-    # 第三层和之后
+    # Third layer and later
     if(m>1 && m<=nrow(f.msms_m)){
 
       fm.mz_b_final = data.frame()
@@ -1102,11 +1095,10 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       fm.mz_y$accu_weight = cumsum(fm.mz_y$weight)
 
       ##############################################
-      # 离子 m/z 计算
+      # Ion m/z calculation
       # calculate m/z for b/y ions         ***
-      # unmodified 和modified charge 必须相同
+      # Unmodified and modified charge must be the same
       ##############################################
-      # unmodified 和modified charge 必须相同???????
       if(f.msms_u$Charge != f.msms_m$Charge[m]){
         print("charge should be the same")
         break
@@ -1125,14 +1117,16 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
           fm.mz_y_final = rbind(fm.mz_y_final, fm.mz_y)
         }
       }
-      # fu.psm fm.psm 中的x列 中的推理论值与mod unmod 中的实际值比较
-      # 差值 ppm=(理论准确分子量(单同位素)-实测分子量(单同位素))/
-      #                             理论准确分子量(单同位素)*1000000
-      # m实际值 M理论值
+      # Comparison between reasoning values in X columns in fu.psm fm.psm and actual values in mod unmod
+      # Difference value
+      # ppm=(theoretical accurate molecular weight (single isotope) - measured molecular weight (single isotope))
+      # Theoretical accurate molecular weight (single isotope)*1000000
+      # m = actual value       M = theoretical value
       # m/z = (1 - 20/1000000)*M/z    ||  m/z = (1 + 20/1000000)* M/z
-      # 先通过20ppm计算出数值范围，只匹配范围内最高峰
-
-      # 求出实际质量的范围 weight_min weight_max
+      # First calculate the numerical range by 20ppm, only match the highest peak in the range.
+      
+      # Find out the scope of the actual quality
+      # weight_min weight_max
       fm.mz_b_final$mz_b_min = (1 - ppm/PPM_denominator) * fm.mz_b_final$mz_b
       fm.mz_b_final$mz_b_max = (1 + ppm/PPM_denominator) * fm.mz_b_final$mz_b
       fm.mz_y_final$mz_y_min = (1 - ppm/PPM_denominator) * fm.mz_y_final$mz_y
@@ -1181,7 +1175,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       }
       fm.mz_y_psm = fm.mz_y_psm[index_y]
 
-      # 去除多余列
+      # Remove superfluous columns
       l = vector()
       for (i in 1:length(fm.mz_b_psm)) {
         if(lengths(strsplit(names(fm.mz_b_psm[i]),'\\.'))>2){
@@ -1212,7 +1206,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       ### combine
       fm.mz_b_final = cbind(fm.mz_b_final, fm.mz_b_psm)
       fm.mz_y_final = cbind(fm.mz_y_final, fm.mz_y_psm)
-      ## 去除掉峰度太低的匹配的b y离子
+      ## Remove matching b y ions with too low kurtosis
       # fm.mz_b_final
       l = vector()
       for (j in 11:length(fm.mz_b_final)) {
@@ -1240,7 +1234,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       for (i in l) {
         fm.mz_y_final = fm.mz_y_final[,-i]
       }
-      ## 去除掉峰度太低的ms2
+      ## Remove ms2 with too low kurtosis
       l = vector()
       for (i in 1:nrow(mod.ms2)) {
         if(mod.ms2$intensity[i]<min_intensity){
@@ -1253,7 +1247,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       }
       if(max(unmod.ms2$intensity)>max(mod.ms2$intensity)){
         ratio = max(unmod.ms2$intensity)/max(mod.ms2$intensity)
-        unmod.ms2$intensity_adj = unmod.ms2$intensity/ratio #* -1  #调整为负值
+        unmod.ms2$intensity_adj = unmod.ms2$intensity/ratio 
         mod.ms2$intensity_adj = mod.ms2$intensity
         fu.mz_b_final[,11:length(fu.mz_b_final)] =
           fu.mz_b_final[,11:length(fu.mz_b_final)]/ratio
@@ -1313,14 +1307,14 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
 
-      # 画出匹配的b y 离子，并在柱顶标注
-      # y离子 index 顺序调整
+      # Draw matching b y ions and mark them at the top of the column
+      # y ion index order adjustment
       for (i in 1:nrow(fm.mz_y_final)) {
         fm.mz_y_final$index[i] = nrow(fm.mz_y_final)/
           max(fm.mz_y_final$charge) -fm.mz_y_final$index[i] +1
       }
 
-      # 先遍历列再遍历行
+      # Traverse the column first and then traverse the row
 
       for (i in 11:length(fm.mz_b_final)) {
         for (j in 1:nrow(fm.mz_b_final)) {
@@ -1377,8 +1371,8 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
 
-      # 对于charge为2的子离子
-      # 先删除处理 proteomicsdb只对charge为1的进行氨基酸的匹配
+      # For a child ion with a charge of 2
+      # First delete the processing proteomicsdb only for the amino acid match with a charge of 1.
 
       fm.mz_b_final = fm.mz_b_final[which(fm.mz_b_final$charge==1),]
       fm.mz_y_final = fm.mz_y_final[which(fm.mz_y_final$charge==1),]
@@ -1398,7 +1392,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
           segments(x0=fm.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
                    x1=fm.mz_b_final$mz_b[i], y1=n.ms2.max.intensity*1.45)
 
-          # 最后一个手动赋值
+          # Last manual assignment
           segments(fm.mz_b_final$mz_b[nrow(fm.mz_b_final)-1],
                    n.ms2.max.intensity*1.4,
                    fm.mz_b_final$mz_b[nrow(fm.mz_b_final)-1]+
@@ -1409,7 +1403,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
             n.ms2.max.intensity*1.4,n.ms1.mass,n.ms2.max.intensity*1.4)
 
 
-          # 第一次添加黑线25%  75%
+          # Add black line for the first time in 25% 75%
           if(i==1){
             segments(0,n.ms2.max.intensity*1.4,0.25*fm.mz_b_final$mz_b[i],
                      n.ms2.max.intensity*1.4)
@@ -1438,10 +1432,10 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
         }
       }
 
-      #140%匹配标红
+      #140% Match and label colors
       for(i in 1:nrow(fm.mz_b_final)){
-        # 为了防止 需要TRUE/FALSE值的地方不可以用缺少值错误，从下标2开始遍历
-        #匹配上色
+        # In order to prevent the need for TRUE/FALSE values, you can not use the missing value error, traversing from subscript 2
+        # Match and label colors
         for (j in 11:length(fm.mz_b_final)) {
           if(fm.mz_b_final[i,j] != 0){
             segments(x0=fm.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
@@ -1490,7 +1484,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
             n.ms2.max.intensity*1.25,n.ms1.mass,n.ms2.max.intensity*1.25)
 
 
-          # 25% 75% 黑线
+          # 25% 75% black line
           if(i==1){
             segments(0,n.ms2.max.intensity*1.25,fm.mz_y_final$mz_y[i]*0.25,
                      n.ms2.max.intensity*1.25)
@@ -1525,7 +1519,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
 
       for(i in 1:nrow(fm.mz_y_final)){
-        # 匹配上色
+        # Match and label colors
         for (j in 11:length(fm.mz_y_final)) {
           if(fm.mz_y_final[i,j] != 0){
             segments(x0=fm.mz_y_final$mz_y[i], y0=n.ms2.max.intensity*1.2,

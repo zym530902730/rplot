@@ -18,7 +18,7 @@
 
 #' @export
 
-# 自动化绘图处理
+# Automatic drawing processing
 main <-function(input_table_path,xmlurl){
   input_table <- read.table(input_table_path, na.strings = "NA", sep = "\t",
                             check.names = FALSE, fill = TRUE, header = TRUE,
@@ -66,17 +66,17 @@ main <-function(input_table_path,xmlurl){
       }
 
   }
-  # 去掉开始的;号
+  # Remove the ; of the beginning
   input_table$mz = substr(input_table$mz, 2, nchar(input_table$mz))
   input_table$intensity = substr(input_table$intensity, 2,
                                  nchar(input_table$intensity))
 
-  # 数据处理完后开始以label为单位绘图
+  # After data processing, it begins to draw in units of label
   input_table_copy = input_table
   labels = unique(input_table$label)
   for (i in 1:length(labels)) {
     input_table_copy = input_table[c(input_table$label==labels[i]),]
-    # 若labels[i]在input_table数量是2，调用plot_mirror(),否调用plot_parallel()
+    # If labels[i] is 2 in input_table, calling plot_mirror (), else call plot_parallel ()
     rawfile=unlist(
       strsplit(input_table_copy[1,1], "\\\\|/|;|=", fixed = FALSE))[
         length(unlist(strsplit(input_table_copy[1,1], "\\\\|/|;|=",
