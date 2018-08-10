@@ -4,12 +4,32 @@
 \alias{main}
 \title{main}
 \usage{
-main(input_table_path, xmlurl)
+main(input_table_path, xmlurl, min_intensity = 100, cex = 1, srt = 0,
+  ppm = 20, PPM_denominator = 1e+06, pdf_width = 20,
+  pdf_height = 10, y_ion_col = "red", b_ion_col = "blue")
 }
 \arguments{
 \item{input_table_path}{input_table_path}
 
 \item{xmlurl}{xmlurl}
+
+\item{min_intensity}{min_intensity=100}
+
+\item{cex}{cex}
+
+\item{srt}{srt}
+
+\item{ppm}{ppm}
+
+\item{PPM_denominator}{PPM_denominator}
+
+\item{pdf_width}{pdf_width}
+
+\item{pdf_height}{pdf_height}
+
+\item{y_ion_col}{y ion's color}
+
+\item{b_ion_col}{b ion's color}
 }
 \description{
 main function in this package

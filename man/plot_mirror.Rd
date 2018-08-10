@@ -6,7 +6,7 @@
 \usage{
 plot_mirror(fileName, f.msms, xmlurl, min_intensity = 100, cex = 1,
   srt = 0, ppm = 20, PPM_denominator = 1e+06, pdf_width = 20,
-  pdf_height = 10)
+  pdf_height = 10, y_ion_col = "red", b_ion_col = "blue")
 }
 \arguments{
 \item{fileName}{filename}
@@ -28,6 +28,10 @@ plot_mirror(fileName, f.msms, xmlurl, min_intensity = 100, cex = 1,
 \item{pdf_width}{pdf_width}
 
 \item{pdf_height}{pdf_height}
+
+\item{y_ion_col}{y ion's color}
+
+\item{b_ion_col}{b ion's color}
 }
 \description{
 plot_mirror function in this package

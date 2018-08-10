@@ -20,7 +20,8 @@
 #' @param pdf_width pdf_width
 #'
 #' @param pdf_height pdf_height
-#'
+#' @param y_ion_col y ion's color
+#' @param b_ion_col b ion's color
 #' @return NULL
 #' @import stringr
 #' @import TeachingDemos
@@ -36,7 +37,7 @@
 
 # Mirror image drawing method
 plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
-                        ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10){
+                        ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue"){
   pdf(file=paste(fileName,sep="",".pdf"), width=pdf_width, height=pdf_height)
 
   # Processing modfication.xml files
@@ -545,22 +546,22 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fm.mz_b_final[j,i] != 0){
         if(fm.mz_b_final$charge[j]==1){
           lines(as.numeric(names(fm.mz_b_final[i])),
-                fm.mz_b_final[j,i], type = "h",las=1, col="green")
+                fm.mz_b_final[j,i], type = "h",las=1, col=b_ion_col)
           text(as.numeric(names(fm.mz_b_final[i])),fm.mz_b_final[j,i],
                paste('b',fm.mz_b_final$index[j],'+',sep = ''),
-               cex = cex,col="green",pos = 3,srt=srt)
+               cex = cex,col=b_ion_col,pos = 3,srt=srt)
         }else if(fm.mz_b_final$charge[j]==2){
           lines(as.numeric(names(fm.mz_b_final[i])), fm.mz_b_final[j,i],
-                type = "h",las=1, col="green")
+                type = "h",las=1, col=b_ion_col)
           text(as.numeric(names(fm.mz_b_final[i])),fm.mz_b_final[j,i],
                paste('b',fm.mz_b_final$index[j],'++',sep = ''),cex = cex,
-               col="green",pos = 3,srt=srt)
+               col=b_ion_col,pos = 3,srt=srt)
         }else if(fm.mz_b_final$charge[j]==3){
           lines(as.numeric(names(fm.mz_b_final[i])), fm.mz_b_final[j,i],
-                type = "h",las=1, col="green")
+                type = "h",las=1, col=b_ion_col)
           text(as.numeric(names(fm.mz_b_final[i])),fm.mz_b_final[j,i],
                paste('b',fm.mz_b_final$index[j],'+++',sep = ''),
-               cex = cex,col="green",pos = 3,srt=srt)
+               cex = cex,col=b_ion_col,pos = 3,srt=srt)
         }
       }
     }
@@ -570,22 +571,22 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fm.mz_y_final[j,i] != 0){
         if(fm.mz_y_final$charge[j]==1){
           lines(as.numeric(names(fm.mz_y_final[i])), fm.mz_y_final[j,i],
-                type = "h",las=1, col="orange")
+                type = "h",las=1, col=y_ion_col)
           text(as.numeric(names(fm.mz_y_final[i])),fm.mz_y_final[j,i],
                paste('y',fm.mz_y_final$index[j],'+ ',sep = ''),
-               cex = cex, col="orange",pos = 3,srt=srt)
+               cex = cex, col=y_ion_col,pos = 3,srt=srt)
         }else if(fm.mz_y_final$charge[j]==2){
           lines(as.numeric(names(fm.mz_y_final[i])), fm.mz_y_final[j,i],
-                type = "h",las=1, col="orange")
+                type = "h",las=1, col=y_ion_col)
           text(as.numeric(names(fm.mz_y_final[i])),fm.mz_y_final[j,i],
                paste('y',fm.mz_y_final$index[j],'++',sep = ''),
-               cex = cex, col="orange",pos = 3,srt=srt)
+               cex = cex, col=y_ion_col,pos = 3,srt=srt)
         }else if(fm.mz_y_final$charge[j]==3){
           lines(as.numeric(names(fm.mz_y_final[i])), fm.mz_y_final[j,i],
-                type = "h",las=1, col="orange")
+                type = "h",las=1, col=y_ion_col)
           text(as.numeric(names(fm.mz_y_final[i])),fm.mz_y_final[j,i],
                paste('y',fm.mz_y_final$index[j],'+++',sep = ''),
-               cex = cex, col="orange",pos = 3,srt=srt)
+               cex = cex, col=y_ion_col,pos = 3,srt=srt)
         }
       }
     }
@@ -595,22 +596,22 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fu.mz_b_final[j,i] != 0){
         if(fu.mz_b_final$charge[j]==1){
           lines(as.numeric(names(fu.mz_b_final[i])), fu.mz_b_final[j,i],
-                type = "h",las=1, col="green")
+                type = "h",las=1, col=b_ion_col)
           text(as.numeric(names(fu.mz_b_final[i])),fu.mz_b_final[j,i],
                paste('b',fu.mz_b_final$index[j],'+',sep = ''),
-               cex = cex, col="green",pos = 1,srt=srt)
+               cex = cex, col=b_ion_col,pos = 1,srt=srt)
         }else if(fu.mz_b_final$charge[j]==2){
           lines(as.numeric(names(fu.mz_b_final[i])), fu.mz_b_final[j,i],
-                type = "h",las=1, col="green")
+                type = "h",las=1, col=b_ion_col)
           text(as.numeric(names(fu.mz_b_final[i])),fu.mz_b_final[j,i],
                paste('b',fu.mz_b_final$index[j],'++',sep = ''),
-               cex = cex, col="green",pos = 1,srt=srt)
+               cex = cex, col=b_ion_col,pos = 1,srt=srt)
         }else if(fu.mz_b_final$charge[j]==3){
           lines(as.numeric(names(fu.mz_b_final[i])), fu.mz_b_final[j,i],
-                type = "h",las=1, col="green")
+                type = "h",las=1, col=b_ion_col)
           text(as.numeric(names(fu.mz_b_final[i])),fu.mz_b_final[j,i],
                paste('b',fu.mz_b_final$index[j],'+++',sep = ''),
-               cex = cex, col="green",pos = 1,srt=srt)
+               cex = cex, col=b_ion_col,pos = 1,srt=srt)
         }
       }
     }
@@ -620,22 +621,22 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fu.mz_y_final[j,i] != 0){
         if(fu.mz_y_final$charge[j]==1){
           lines(as.numeric(names(fu.mz_y_final[i])), fu.mz_y_final[j,i],
-                type = "h",las=1, col="orange")
+                type = "h",las=1, col=y_ion_col)
           text(as.numeric(names(fu.mz_y_final[i])),fu.mz_y_final[j,i],
                paste('y',fu.mz_y_final$index[j],'+',sep = ''),
-               cex = cex, col="orange",pos = 1,srt=srt)
+               cex = cex, col=y_ion_col,pos = 1,srt=srt)
         }else if(fu.mz_y_final$charge[j]==2){
           lines(as.numeric(names(fu.mz_y_final[i])), fu.mz_y_final[j,i],
-                type = "h",las=1, col="orange")
+                type = "h",las=1, col=y_ion_col)
           text(as.numeric(names(fu.mz_y_final[i])),fu.mz_y_final[j,i],
                paste('y',fu.mz_y_final$index[j],'++',sep = ''),
-               cex = cex, col="orange",pos = 1,srt=srt)
+               cex = cex, col=y_ion_col,pos = 1,srt=srt)
         }else if(fu.mz_y_final$charge[j]==3){
           lines(as.numeric(names(fu.mz_y_final[i])), fu.mz_y_final[j,i],
-                type = "h",las=1, col="orange")
+                type = "h",las=1, col=y_ion_col)
           text(as.numeric(names(fu.mz_y_final[i])),fu.mz_y_final[j,i],
                paste('y',fu.mz_y_final$index[j],'+++',sep = ''),
-               cex = cex, col="orange",pos = 1,srt=srt)
+               cex = cex, col=y_ion_col,pos = 1,srt=srt)
         }
       }
     }
@@ -756,7 +757,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fm.mz_b_final[i,j] != 0){
         segments(x0=fm.mz_b_final$mz_b[i], y0=n.ms2.max.intensity*1.35,
                  x1=fm.mz_b_final$mz_b[i], y1=n.ms2.max.intensity*1.45,
-                 col = "green",lwd = 3)
+                 col = b_ion_col,lwd = 3)
         tag1[i] = fm.mz_b_final$mz_b[i]
       }
     }
@@ -764,7 +765,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fu.mz_b_final[i,j] != 0){
         segments(x0=fu.mz_b_final$mz_b[i], y0=n.ms2.min.intensity*1.35,
                  x1=fu.mz_b_final$mz_b[i], y1=n.ms2.min.intensity*1.45,
-                 col = "green",lwd = 3)
+                 col = b_ion_col,lwd = 3)
         tag2[i] = fu.mz_b_final$mz_b[i]
       }
     }
@@ -772,14 +773,14 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(tag1[j] > 0 && tag1[j-1] != 0 && fm.mz_b_final$mz_b[i-1] == tag1[j-1]
          && fm.mz_b_final$mz_b[i]== tag1[j]){
         segments(tag1[i-1], n.ms2.max.intensity*1.4, tag1[i-1]+0.25*(
-          tag1[i]-tag1[i-1]), n.ms2.max.intensity*1.4,col = "green")
+          tag1[i]-tag1[i-1]), n.ms2.max.intensity*1.4,col = b_ion_col,lwd = 3)
         segments(tag1[i-1]+0.75*(tag1[i]-tag1[i-1]), n.ms2.max.intensity*1.4,
-                 tag1[i], n.ms2.max.intensity*1.4,col = "green")
+                 tag1[i], n.ms2.max.intensity*1.4,col = b_ion_col,lwd = 3)
 
         shadowtext(x=fm.mz_b_final$mz_b[i-1]+(
           fm.mz_b_final$mz_b[i]-fm.mz_b_final$mz_b[i-1])/2,
           y=n.ms2.max.intensity*1.4, labels=fm.mz_b_final$AA[i],
-          col="green", bg="white")
+          col=b_ion_col, bg="white")
       }
     }
     #140% Match and mark 
@@ -787,13 +788,13 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(tag2[j] > 0 && tag2[j-1] != 0 && fu.mz_b_final$mz_b[i-1] == tag2[j-1]
          && fu.mz_b_final$mz_b[i]== tag2[j]){
         segments(tag2[i-1], n.ms2.min.intensity*1.4, tag2[i-1]+
-                0.25*(tag2[i]-tag2[i-1]), n.ms2.min.intensity*1.4,col = "green")
+                0.25*(tag2[i]-tag2[i-1]), n.ms2.min.intensity*1.4,col = b_ion_col,lwd = 3)
         segments(tag2[i-1]+0.75*(tag2[i]-tag2[i-1]), n.ms2.min.intensity*1.4,
-                 tag2[i], n.ms2.min.intensity*1.4,col = "green")
+                 tag2[i], n.ms2.min.intensity*1.4,col = b_ion_col,lwd = 3)
         shadowtext(x=fu.mz_b_final$mz_b[i-1]+(
           fu.mz_b_final$mz_b[i]-fu.mz_b_final$mz_b[i-1])/2,
           y=n.ms2.min.intensity*1.4, labels=fu.mz_b_final$AA[i],
-          col="green", bg="white")
+          col=b_ion_col, bg="white")
       }
     }
   }
@@ -892,7 +893,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fm.mz_y_final[i,j] != 0){
         segments(x0=fm.mz_y_final$mz_y[i], y0=n.ms2.max.intensity*1.2,
                  x1=fm.mz_y_final$mz_y[i], y1=n.ms2.max.intensity*1.3,
-                 col = "orange",lwd = 3)
+                 col = y_ion_col,lwd = 3)
         tag1[i] = fm.mz_y_final$mz_y[i]
       }
     }
@@ -900,7 +901,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(fu.mz_y_final[i,j] != 0){
         segments(x0=fu.mz_y_final$mz_y[i], y0=n.ms2.min.intensity*1.2,
                  x1=fu.mz_y_final$mz_y[i], y1=n.ms2.min.intensity*1.3,
-                 col = "orange",lwd = 3)
+                 col = y_ion_col,lwd = 3)
         tag2[i] = fu.mz_y_final$mz_y[i]
       }
     }
@@ -909,13 +910,13 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
          && fm.mz_y_final$mz_y[i]== tag1[j]){
         segments(tag1[i-1], n.ms2.max.intensity*1.25,
                  tag1[i-1]+0.25*(tag1[i]-tag1[i-1]), n.ms2.max.intensity*1.25,
-                 col = "orange")
+                 col = y_ion_col,lwd = 3)
         segments(tag1[i-1]+0.75*(tag1[i]-tag1[i-1]), n.ms2.max.intensity*1.25,
-                 tag1[i], n.ms2.max.intensity*1.25,col = "orange")
+                 tag1[i], n.ms2.max.intensity*1.25,col = y_ion_col,lwd = 3)
 
         shadowtext(x=fm.mz_y_final$mz_y[i-1]+(
           fm.mz_y_final$mz_y[i]-fm.mz_y_final$mz_y[i-1])/2,
-          y=n.ms2.max.intensity*1.25, labels=fm.mz_y_final$AA[i], col="orange",
+          y=n.ms2.max.intensity*1.25, labels=fm.mz_y_final$AA[i], col=y_ion_col,
           bg="white")
       }
     }
@@ -923,12 +924,12 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       if(tag2[j2] > 0 && tag2[j2-1] != 0 && fu.mz_y_final$mz_y[i-1] ==tag2[j2-1]
          && fu.mz_y_final$mz_y[i]== tag2[j2]){
         segments(tag2[i-1], n.ms2.min.intensity*1.25, tag2[i-1]+
-              0.25*(tag2[i]-tag2[i-1]), n.ms2.min.intensity*1.25,col = "orange")
+              0.25*(tag2[i]-tag2[i-1]), n.ms2.min.intensity*1.25,col = y_ion_col,lwd = 3)
         segments(tag2[i-1]+0.75*(tag2[i]-tag2[i-1]), n.ms2.min.intensity*1.25,
-                 tag2[i], n.ms2.min.intensity*1.25,col = "orange")
+                 tag2[i], n.ms2.min.intensity*1.25,col = y_ion_col,lwd = 3)
         shadowtext(x=fu.mz_y_final$mz_y[i-1]+(
           fu.mz_y_final$mz_y[i]-fu.mz_y_final$mz_y[i-1])/2,
-          y=n.ms2.min.intensity*1.25, labels=fu.mz_y_final$AA[i], col="orange",
+          y=n.ms2.min.intensity*1.25, labels=fu.mz_y_final$AA[i], col=y_ion_col,
           bg="white")
       }
     }

@@ -5,8 +5,22 @@
 #' @param input_table_path input_table_path
 #'
 #' @param xmlurl xmlurl
-
+#' 
+#' @param min_intensity min_intensity=100
 #'
+#' @param cex cex
+#'
+#' @param srt srt
+#'
+#' @param ppm ppm
+#'
+#' @param PPM_denominator PPM_denominator
+#'
+#' @param pdf_width pdf_width
+#'
+#' @param pdf_height pdf_height
+#' @param y_ion_col y ion's color
+#' @param b_ion_col b ion's color
 #' @return NULL
 #' @import stringr
 #' @import TeachingDemos
@@ -14,15 +28,22 @@
 #' @importFrom MSnbase readMSData pickPeaks
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics abline axis lines par plot segments text
-#' @importFrom utils read.table
-
+#' @importFrom data.table fread
 #' @export
 
 # Automatic drawing processing
-main <-function(input_table_path,xmlurl){
-  input_table <- read.table(input_table_path, na.strings = "NA", sep = "\t",
+main <-function(input_table_path,xmlurl,
+                min_intensity=100,cex=1,srt=0,ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue"){
+  input_table <- data.table::fread(input_table_path, na.strings = "NA", sep = "\t",
                             check.names = FALSE, fill = TRUE, header = TRUE,
                             stringsAsFactors = FALSE)
+  input_table <- as.data.frame(input_table)
+  if(nrow(input_table)==0){
+      stop("input_table is empty.")
+  }
+  # if(all(input_table$label == input_table$label[1])){
+  #     stop("Lable should not be unique.")
+  # }
   mz2 = MSnbase::readMSData(input_table$`Raw file`[1],mode="onDisk") # open file
   for (i in 1:nrow(input_table)) {
       if(i==1){
@@ -77,18 +98,18 @@ main <-function(input_table_path,xmlurl){
   for (i in 1:length(labels)) {
     input_table_copy = input_table[c(input_table$label==labels[i]),]
     # If labels[i] is 2 in input_table, calling plot_mirror (), else call plot_parallel ()
-    rawfile=unlist(
-      strsplit(input_table_copy[1,1], "\\\\|/|;|=", fixed = FALSE))[
-        length(unlist(strsplit(input_table_copy[1,1], "\\\\|/|;|=",
-                               fixed = FALSE)))]
+    # rawfile=unlist(
+    #   strsplit(input_table_copy[1,1], "\\\\|/|;|=", fixed = FALSE))[
+    #     length(unlist(strsplit(input_table_copy[1,1], "\\\\|/|;|=",
+    #                            fixed = FALSE)))]
 
     if(sum(unlist(input_table_copy$label)==labels[i])==2){
-      plot_mirror(paste(rawfile,"_mirror",labels[i]),
-                  input_table_copy,xmlurl)
+      plot_mirror(paste(input_table_copy$Sequence[1],"_mirror_",labels[i],sep = ""),
+                  input_table_copy,xmlurl,min_intensity=100,cex=1,srt=0,ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue")
     }
     if(sum(unlist(input_table_copy$label)==labels[i])>2){
-      plot_parallel(paste(rawfile,"_parallel",labels[i]),
-                    input_table_copy,xmlurl)
+      plot_parallel(paste(input_table_copy$Sequence[1],"_parallel_",labels[i],sep = ""),
+                    input_table_copy,xmlurl,min_intensity=100,cex=1,srt=0,ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue")
     }
 
   }
