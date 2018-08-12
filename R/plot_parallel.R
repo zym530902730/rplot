@@ -118,12 +118,12 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
   max_mod = 0
   for (i in 1:length(mod.ms2_sum)) {
-    mod.ms2_sum[,i]<-as.numeric(as.character(mod.ms2_sum[,i])) # 保持精度
+    mod.ms2_sum[,i]<-as.numeric(as.character(mod.ms2_sum[,i])) 
     if(i%%2==0){
       max_mod = max(max_mod,mod.ms2_sum[,i])
     }
   }
-  unmod.ms2$mass<-as.numeric(unmod.ms2$mass) # 保持精度
+  unmod.ms2$mass<-as.numeric(unmod.ms2$mass) 
   unmod.ms2$intensity<-as.numeric(unmod.ms2$intensity)
 
   min_intensity=max(max_mod,max(unmod.ms2$intensity))/min_intensity
@@ -151,11 +151,7 @@ plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
       l1.intensity = mod.ms2_sum[,m*2]
       mod.ms2 = data.frame(l1.masses, l1.intensity, stringsAsFactors = F)
       colnames(mod.ms2) = c('mass','intensity')
-      #screen(1)
-      #par(oma=c(0,0,0,0))
-      # c(下, left, 上, right)
-      #par(mar=c(0,4,3,4))
-
+     
       f.unimod$AA_loc = paste(f.unimod$AA,f.unimod$location,sep="_")
       f.unimod=f.unimod[,c("weight", "AA_loc")]
 
