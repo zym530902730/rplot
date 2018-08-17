@@ -38,12 +38,34 @@ main <-function(input_table_path,xmlurl,
                             check.names = FALSE, fill = TRUE, header = TRUE,
                             stringsAsFactors = FALSE)
   input_table <- as.data.frame(input_table)
-  if(nrow(input_table)==0){
-      stop("input_table is empty.")
-  }
-  # if(all(input_table$label == input_table$label[1])){
-  #     stop("Lable should not be unique.")
+  
+  
+  
+  # check input_table
+  if(nrow(input_table) == 0){stop("The variable input_table_path do NOT contain any MS2 information! Please see example files.")} # 
+  input_table_split = split(input_table, input_table$label) # split table by label
+  
+  labelgroup=sapply(input_table_split, "[",1) # extract the first item in the split list 
+  
+  numbers_in_each_labelgroup = sapply(labelgroup, length) # MS2 Number for each label should be >=2 (mirror or groups)
+  if(all(numbers_in_each_labelgroup >=2) == F){stop("Each group should contains at least 2 MS2 IDs!")}
+  unique_number_in_each_labelgroup = length(sapply(labelgroup, unique)) #
+  if(unique_number_in_each_labelgroup != length(input_table_split)){stop("MS2 IDs in each group should derive from the same raw MS file!")}
+  
+  # 
+  
+  mz2 = MSnbase::readMSData(input_table$`Raw file`[1],mode="onDisk") # open file
+  
+  
+
+ 
+  
+  # if(nrow(input_table)==0){
+  #     stop("input_table is empty.")
   # }
+  # # if(all(input_table$label == input_table$label[1])){
+  # #     stop("Lable should not be unique.")
+  # # }
   mz2 = MSnbase::readMSData(input_table$`Raw file`[1],mode="onDisk") # open file
   for (i in 1:nrow(input_table)) {
       if(i==1){
@@ -105,11 +127,11 @@ main <-function(input_table_path,xmlurl,
 
     if(sum(unlist(input_table_copy$label)==labels[i])==2){
       plot_mirror(paste(input_table_copy$Sequence[1],"_mirror_",labels[i],sep = ""),
-                  input_table_copy,xmlurl,min_intensity=100,cex=1,srt=0,ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue")
+                  input_table_copy,xmlurl,min_intensity=min_intensity,cex=cex,srt=srt,ppm=ppm,PPM_denominator=PPM_denominator,pdf_width=pdf_width,pdf_height=pdf_height,y_ion_col=y_ion_col,b_ion_col=b_ion_col)
     }
     if(sum(unlist(input_table_copy$label)==labels[i])>2){
       plot_parallel(paste(input_table_copy$Sequence[1],"_parallel_",labels[i],sep = ""),
-                    input_table_copy,xmlurl,min_intensity=100,cex=1,srt=0,ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue")
+                    input_table_copy,xmlurl,min_intensity=min_intensity,cex=cex,srt=srt,ppm=ppm,PPM_denominator=PPM_denominator,pdf_width=pdf_width,pdf_height=pdf_height,y_ion_col=y_ion_col,b_ion_col=b_ion_col)
     }
 
   }

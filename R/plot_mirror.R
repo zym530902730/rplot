@@ -42,7 +42,7 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
 
   # Processing modfication.xml files
   # And read site, title, composition and merge into f.unimod.
-  modifications = NULL
+  
   modifications = read_modifications(xmlurl)
 
   f.atom_MW = structure(list(Element = structure(c(20L, 4L, 24L, 9L, 11L, 1L,
@@ -493,7 +493,8 @@ plot_mirror <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
   # Drawing
   options(scipen=22)
   #outer margin
-  par(oma=c(0,4,0,4))
+  #par(oma=c(0,4,0,4))
+  par(pty="m",omd=c(0.1,0.9,0.1,0.9))
   # margin
   #par(mar=c(4,2,2,2))
   par(xaxs = "i", yaxs = "i")

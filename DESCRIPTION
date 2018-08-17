@@ -1,6 +1,6 @@
 Package: rplot
 Type: Package
-Title: Visualization of modified and unmodified peptide spectra pairs for determination of modification positions in R.
+Title: Visualization of modified and unmodified peptide spectra pairs for determination of modification positions in R
 Version: 0.99.0
 Author: Yiming Zhao <530902730@qq.com>
 Maintainer: Yiming Zhao <530902730@qq.com>

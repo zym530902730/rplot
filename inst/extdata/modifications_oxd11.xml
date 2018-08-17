@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modifications xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <modification title="Oxid_11" description="New modification" create_date="2016-09-29T12:25:50.265617+08:00" last_modified_date="2016-09-29T12:26:35.4340902+08:00" user="Administrator" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="D">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="H">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="M">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="N">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="W">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="Y">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="R">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="P">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="F">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="C">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+</modifications>
