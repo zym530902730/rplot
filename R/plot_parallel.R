@@ -35,13 +35,18 @@
 
 # parallel image drawing method
 plot_parallel <- function(fileName,f.msms,xmlurl,min_intensity=100,cex=1,srt=0,
-                        ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,y_ion_col="red",b_ion_col="blue"){
+                        ppm=20,PPM_denominator=1E6,pdf_width=20,pdf_height=10,
+                        y_ion_col="red",b_ion_col="blue"){
 
   pdf(file=paste(fileName,sep="",".pdf"), width=pdf_width, height=pdf_height)
 
 
-  modifications = data.frame()
-  modifications = read_modifications(xmlurl)
+    Modifications = f.msms$`Modifications`[1]
+    if(Modifications=="Unmodified"){
+        Modifications = f.msms$`Modifications`[2]
+    }
+    modifications = read_modifications(xmlurl,Modifications)
+    
 
   f.atom_MW = structure(list(Element = structure(c(20L, 4L, 24L, 9L, 11L, 1L,
   28L, 2L, 31L, 3L, 18L, 29L, 25L, 6L, 32L, 36L, 14L, 23L, 12L,
