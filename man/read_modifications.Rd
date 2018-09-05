@@ -4,10 +4,12 @@
 \alias{read_modifications}
 \title{read_modifications}
 \usage{
-read_modifications(xmlurl)
+read_modifications(xmlurl, modifications)
 }
 \arguments{
 \item{xmlurl}{modifications.xml file path}
+
+\item{modifications}{modifications}
 }
 \value{
 modifications

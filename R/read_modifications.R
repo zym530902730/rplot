@@ -5,7 +5,7 @@
 #' @description read modifications.xml file
 
 #' @param xmlurl modifications.xml file path
-
+#' @param modifications modifications
 
 #' @return modifications
 

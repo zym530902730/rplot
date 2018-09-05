@@ -31,8 +31,8 @@
 #' @importFrom data.table fread
 #' @export
 #' @example input_table_path = dir(system.file(package = "rplot",dir = "extdata"),full.name = TRUE,pattern = "mzXML$")
-#' xmlurl = dir(system.file(package = "rplot",dir = "extdata"),full.name = TRUE,pattern = "xml$")
-#' main(input_table_path,xmlurl)
+#'           xmlurl = dir(system.file(package = "rplot",dir = "extdata"),full.name = TRUE,pattern = "xml$")
+#'           main(input_table_path,xmlurl)
 
 
 # Automatic drawing processing
