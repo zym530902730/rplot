@@ -13,3 +13,8 @@ test/20101227_Velos1_TaGe_SA_GAMG_101230100451.mzML	10874	GGGGNFGPGPGSNFR	Oxid_1
 test/20101227_Velos1_TaGe_SA_GAMG_101230100451.mzML	10874	GGGGNFGPGPGSNFR	Oxid_11	P10:ox	C:Carbamidomethyl		1
 
 # 3. 输出
+![](./20101227_Velos1_TaGe_SA_GAMG_101230100451.mzML _parallel.pdf)
+
+![](./mirror_plot_3.5.pdf)
+
+![](./group_plot_3.5inch.pdf)
